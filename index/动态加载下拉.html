@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>动态加载下拉</title>
+    <style>
+        .fl {float: left} .fr {float: right}
+        .container {padding: 100px}
+        .container .mode {margin-bottom: 20px}
+        .container .mode input {margin-bottom: 20px}
+        .time select{width: 80px;height: 30px}
+    </style>
+</head>
+<body>
+<div class="clearfix container">
+    <div class="mode">
+        <label for="five">五分钟</label><input type="radio" checked id="five" name="mode" onchange="funcTimeMode(this)">
+        <label for="ten">十分钟</label><input type="radio"  id="ten" name="mode" onchange="funcTimeMode(this)">
+        <label for="sanshi">三十分钟</label><input type="radio" id="sanshi" name="mode" onchange="funcTimeMode(this)">
+    </div>
+    <div class="fl">
+        <span>时刻：</span>
+    </div>
+    <div class="fl time">
+        <select id="start_hour">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+        </select>
+        <select id="start_minute" class="minute">
+            <option value="00">00</option>
+            <option value="05">05</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+        </select>
+        至
+        <select id="end_hour">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+        </select>
+        <select id="end_minute" class="minute">
+            <option value="00">00</option>
+            <option value="05">05</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+        </select>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+<script>
+    function funcTimeMode(obj) {
+        if (obj.id == "five") {
+            var arr5 = ["00","05","10","15","20","25","30","35","40","45","50","55"];
+            funcTime(arr5);
+        }
+        if (obj.id == "ten") {
+            console.log("十分钟");
+            var arr10 = ["00","10","20","30","40","50"];
+            funcTime(arr10)
+        }
+        if (obj.id == "sanshi") {
+            console.log("三十分钟");
+            var arr30 = ["00","30"];
+            funcTime(arr30)
+        }
+    }
+    function funcTime(arr) {//onclick
+        var $str = '';
+        for (var i = 0; i < arr.length; i ++) {
+            $str += '<option value="'+arr[i]+'">'+arr[i]+'</option>';
+        }
+        $(".minute").html($str);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>问诊时间</title>
+	<style>
+		.table {width: 80%}
+		.table tr{height: 40px}
+		.table tr td{height: 40px;border: 0.5px solid gray}
+	</style>
+</head>
+<body>
+	<div class="mass_set">
+        <table class="table">
+            <thead>
+	            <tr class="table-title">
+	                <th></th>
+	                <th>上午</th>
+	                <th>中午</th>
+	                <th>晚上</th>
+	            </tr>
+            </thead>
+            <tbody id="mainShow">
+           		<tr>
+	                <td>周一</td>
+	                <td data-week-one="am"></td>
+	                <td data-week-one="pm"></td>
+	                <td data-week-one="ws"></td>
+	            </tr>
+	            <tr>
+	                <td>周二</td>
+	               <td data-week-two="am"></td>
+	                <td data-week-two="pm"></td>
+	                <td data-week-two="ws"></td>
+	            </tr>
+	            <tr>
+	                <td>周三</td>
+	                <td data-week-three="am"></td>
+	                <td data-week-three="pm"></td>
+	                <td data-week-three="ws"></td>
+	            </tr>
+	            <tr>
+	                <td>周四</td>
+	                <td data-week-four="am"></td>
+	                <td data-week-four="pm"></td>
+	                <td data-week-four="ws"></td>
+	            </tr>
+	            <tr>
+	                <td>周五</td>
+	                <td data-week-five="am"></td>
+	                <td data-week-five="pm"></td>
+	                <td data-week-five="ws"></td>
+	            </tr>
+	            <tr>
+	                <td>周六</td>
+	                <td data-week-six="am"></td>
+	                <td data-week-six="pm"></td>
+	                <td data-week-six="ws"></td>
+	            </tr>
+	            <tr>
+	                <td>周日</td>
+	                <td data-week-seven="am"></td>
+	                <td data-week-seven="pm"></td>
+	                <td data-week-seven="ws"></td>
+	            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+<script>
+	var $mainTd = $("#mainShow");
+
+	$mainTd.find("td").click(function(e) {
+		var _this = $(this);
+		if (_this.text) {
+			return;
+		}
+		$(this).toggleClass("active");
+	})
+
+	$(".mass").click(function (argument) {
+		// body...
+		var arr  = [];
+		var $tr = $mainTd.find("tr");
+		$.each($tr,function (i,v) {
+			var objArr = [];
+			$each($(v).find("td"),function(k,va) {
+				if (va.text()) {
+					return;
+				}
+				$(va).hasClass("active")
+			})
+		})
+	})
+
+
+	for (var i = 0; i < els.length; i ++) {
+		console.log("fsdff:",els[i]);
+		// console.log($(this))
+	}
+	
+</script>
