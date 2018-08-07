@@ -7,6 +7,7 @@
 		.table {width: 80%}
 		.table tr{height: 40px}
 		.table tr td{height: 40px;border: 0.5px solid gray}
+		.active {background: red}
 	</style>
 </head>
 <body>
@@ -23,82 +24,101 @@
             <tbody id="mainShow">
            		<tr>
 	                <td>周一</td>
-	                <td data-week-one="am"></td>
-	                <td data-week-one="pm"></td>
-	                <td data-week-one="ws"></td>
+	                <td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
 	            <tr>
 	                <td>周二</td>
-	               <td data-week-two="am"></td>
-	                <td data-week-two="pm"></td>
-	                <td data-week-two="ws"></td>
+	               	<td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
 	            <tr>
 	                <td>周三</td>
-	                <td data-week-three="am"></td>
-	                <td data-week-three="pm"></td>
-	                <td data-week-three="ws"></td>
+	                <td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
 	            <tr>
 	                <td>周四</td>
-	                <td data-week-four="am"></td>
-	                <td data-week-four="pm"></td>
-	                <td data-week-four="ws"></td>
+	                <td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
 	            <tr>
 	                <td>周五</td>
-	                <td data-week-five="am"></td>
-	                <td data-week-five="pm"></td>
-	                <td data-week-five="ws"></td>
+	                <td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
 	            <tr>
 	                <td>周六</td>
-	                <td data-week-six="am"></td>
-	                <td data-week-six="pm"></td>
-	                <td data-week-six="ws"></td>
+	                <td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
 	            <tr>
 	                <td>周日</td>
-	                <td data-week-seven="am"></td>
-	                <td data-week-seven="pm"></td>
-	                <td data-week-seven="ws"></td>
+	                <td class="d1" data-val="0"></td>
+	                <td class="d2" data-val="0"></td>
+	                <td class="d3" data-val="0"></td>
 	            </tr>
             </tbody>
         </table>
+        <button class="mass">群发</button>
     </div>
 </body>
 </html>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
 <script>
-	var $mainTd = $("#mainShow");
 
+	//回显问题
+	/*(function () {
+		console.log("huixian")
+	})();*/
+
+	var $mainTd = $("#mainShow");
 	$mainTd.find("td").click(function(e) {
+				// console.log("点击了");
+
 		var _this = $(this);
-		if (_this.text) {
+		if (_this.text()) {
 			return;
 		}
+		console.log("点击了");
+
 		$(this).toggleClass("active");
+		if (_this.hasClass('active')) {
+            _this.attr('data-val', 1);
+            // _this.find("span").addClass("icon-ok icon-white");
+        } else {
+            _this.attr('data-val', 0);
+            // _this.find("span").removeClass("icon-ok icon-white");
+        }
 	})
 
 	$(".mass").click(function (argument) {
 		// body...
-		var arr  = [];
-		var $tr = $mainTd.find("tr");
-		$.each($tr,function (i,v) {
-			var objArr = [];
-			$each($(v).find("td"),function(k,va) {
-				if (va.text()) {
-					return;
-				}
-				$(va).hasClass("active")
-			})
-		})
+		var arr = dataArr();
+		console.log("arr:",arr);
+
 	})
 
+	function dataArr() {
+		var visit_cycle = [];
+        $($mainTd).find('tr').each(function (index) {
+            var that = $(this);
+            /*拿到当前trDOM对象*/
+            var obj = {};
 
-	for (var i = 0; i < els.length; i ++) {
-		console.log("fsdff:",els[i]);
-		// console.log($(this))
+            obj.day = (index + 1).toString();
+            obj.forenoon = parseInt(that.find('.d1').attr('data-val'));
+            obj.at_noon = parseInt(that.find('.d2').attr('data-val'));
+            obj.evening = parseInt(that.find('.d3').attr('data-val'));
+            visit_cycle.push(obj);
+        });
+        return visit_cycle;
 	}
 	
 </script>

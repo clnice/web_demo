@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问诊时间</title>
+    <link rel="shortcut icon" href="<%=basePath%>images/favicon.ico" type="image/x-icon"/>
+    <style>
+        .active {
+            background-color: #49A2FF !important;
+        }
+
+        .glyphicon {
+            color: white;
+            font-size: 20px
+        }
+    </style>
+</head>
+<body>
+
+<div class="backstage container">
+    <!--内容Start-->
+    <div class="main-content">
+        <!--右边板块Start-->
+        <div class="right-content">
+            <!--个人资料Start-->
+            <div class="order bg-FF" id="order">
+                <div class="order-item bg-FF">
+                    <ul id="tit">
+                        <li class="fs16 fl select">问诊时间</li>
+                        <a href="/mk/index">
+                            <li class="fr fs16 cor-theme cp ter">返回</li>
+                        </a>
+
+                    </ul>
+                </div>
+
+                <div class="parting-line"></div>
+
+                <!--问诊时间 Start-->
+                <div class="clinical-time">
+                    <p>用户在微信或者APP端可以随时看您的出诊时间</p>
+                    <div class="mass_set">
+                        <table class="table table-striped" style="margin-bottom: 0px">
+                            <thead>
+                            <tr class="table-title">
+                                <th></th>
+                                <th>上午</th>
+                                <th>中午</th>
+                                <th>晚上</th>
+                            </tr>
+                            </thead>
+                            <tbody id="mainShow">
+                            <tr>
+                                <td>周一</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <tr>
+                                <td>周二</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <tr>
+                                <td>周三</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <tr>
+                                <td>周四</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <tr>
+                                <td>周五</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <tr>
+                                <td>周六</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <tr>
+                                <td>周日</td>
+                                <td class="d1" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d2" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                                <td class="d3" data-val="0"><span class=" " aria-hidden="true"></span></td>
+                            </tr>
+                            <%--</c:forEach>--%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tec mass_operation">
+                        <span class="cp inblock mass bg-theme corfff fs15">群发给患者</span>
+                    </div>
+                </div>
+                <!--问诊时间 End-->
+            </div>
+        </div>
+        <!--右边板块End-->
+    </div>
+    <!--内容End-->
+</div>
+<footer class="footer tec container">
+    版权归，贵州米可医疗科技有限公司。服务支持：0851-88507332
+</footer>
+</body>
+</html>
+<script src="<%= basePath%>lib/jquery-3.2.1.js"></script>
+<script src="<%= basePath%>lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%= basePath%>js/backstage.js"></script>
+<script src="<%= basePath%>js/util.js"></script>
+<script src="<%= basePath%>js/layer/layer.js"></script>
+<script>
+
+    /**
+     * 回显问题
+     * */
+    var week_id = "";
+    (function () {
+        $.ajax({
+            type: "post",//使用get方法访问后台
+            traditional: true,//属性在这里设置,这里是需要添加数组
+            dataType: "json",//返回json格式的数据
+            url: "/mk/getVisitWeek",//"/findFamilyList",//要访问的后台地址
+            data: {},//要发送的数据
+            beforeSend: function () {
+                layer.msg("正在加载", {icon: 16});
+            },
+            success: function (data) {
+                console.log(data);
+                week_id = data.weekDoc._id;
+                var objArr = data.weekDoc.visit_cycle;
+
+                $($mainTd).find('tr').each(function (index) {
+                    console.log($(this).find('.d1').attr('data-val'));
+
+                    $(this).find('.d1').attr('data-val', objArr[index].forenoon);
+                    $(this).find('.d2').attr('data-val', objArr[index].at_noon);
+                    $(this).find('.d3').attr('data-val', objArr[index].evening);
+                    if (objArr[index].forenoon == 1) {
+                        $(this).find('.d1').addClass('active').find("span").addClass("icon-ok icon-white");
+                    }
+                    if (objArr[index].at_noon == 1) {
+                        $(this).find('.d2').addClass('active').find("span").addClass("icon-ok icon-white");
+                    }
+                    if (objArr[index].evening == 1) {
+                        $(this).find('.d3').addClass('active').find("span").addClass("icon-ok icon-white");
+                    }
+                })
+
+            },
+            complete: function () {
+                layer.closeAll();
+            },
+            error: function (error) {
+                console.log("error:" + error);
+            }
+        })
+
+    })();
+
+    /**
+     * 获取反选
+     * */
+    var $mainTd = $("#mainShow");
+    $mainTd.find("td").click(function (e) {
+        var _this = $(this);
+        if (_this.text()) {
+            return;
+        }
+        _this.toggleClass("active");
+        if (_this.hasClass('active')) {
+            _this.attr('data-val', 1);
+            _this.find("span").addClass("icon-ok icon-white");
+        } else {
+            _this.attr('data-val', 0);
+            _this.find("span").removeClass("icon-ok icon-white");
+        }
+        //	console.log(_this.attr('data-val'));
+    });
+
+    $(".mass").click(function () {
+        var arr = dataArr();
+        $.ajax({
+            type: "post",//使用get方法访问后台
+            traditional: true,//属性在这里设置,这里是需要添加数组
+            dataType: "json",//返回json格式的数据
+            url: "/mk/visitWeek",//"/findFamilyList",//要访问的后台地址
+            data: {visitTimeList: JSON.stringify(arr), WeekId: week_id},//要发送的数据
+            beforeSend: function () {
+                layer.msg("正在加载", {icon: 16});
+            },
+            success: function (data) {
+                window.location.href = "/mk/index";
+            },
+            complete: function () {
+                layer.closeAll();
+            },
+            error: function (error) {
+                console.log("error:" + error);
+            }
+        })
+    });
+
+    function dataArr() {
+        var visit_cycle = [];
+        $($mainTd).find('tr').each(function (index) {
+            var that = $(this);
+            /*拿到当前trDOM对象*/
+
+            var obj = {};
+
+            obj.day = (index + 1).toString();
+            obj.forenoon = parseInt(that.find('.d1').attr('data-val'));
+            obj.at_noon = parseInt(that.find('.d2').attr('data-val'));
+            obj.evening = parseInt(that.find('.d3').attr('data-val'));
+            visit_cycle.push(obj);
+        });
+        return visit_cycle;
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
